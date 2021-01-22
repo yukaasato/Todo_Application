@@ -18,6 +18,8 @@ repositories {
 	mavenCentral()
 }
 
+
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -30,6 +32,9 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	/*’Ç‰Á*/
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
 }
 
 test {

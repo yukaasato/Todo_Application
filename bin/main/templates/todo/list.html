@@ -1,0 +1,76 @@
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelead.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+<script th:src="@{/js/todoList.js}"></script>
+<link th:href="@{/css/list.css}" rel="stylesheet" type="text/css">
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+	rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div class="headerBlackBoxUnder">
+			<h1 th:text="${title}" class="container "></h1>
+		</div>
+		<div class="headerBlackBoxUp">
+			<h2 class="container">My Tasks <i class="fas fa-tasks"></i></h2>
+		</div>
+	</header>
+	
+	<section class="container box">
+		<div class="main">
+		<div class="clearfix">
+			<form method="post" th:action="@{/todo/create}" th:object="${taskForm}" id="createArea">
+				<input type="text" name="todo_title" th:value="*{todo_title}"class="title">
+				<input type="submit" value="AddTask" class="btn">
+			</form>
+		</div>	
+					
+			<table class="table" th:each="list : ${todolists}" th:object="${list}">
+				<thead>
+					<th:block>
+						<tr>
+							<th><i class="fas fa-thumbtack"></i></th>
+							<th><i class="far fa-calendar-alt"></i></th>
+							<th><i class="fas fa-clock"></i></th>
+							<th><i class="fas fa-map-marked-alt"></i></th>
+							<!-- <th>Status</th> -->
+						</tr>
+					</th:block>
+				</thead>
+				<th:block>
+					<tr>
+						<td class="data" th:text="*{todo_title}">タイトル</td>
+						<td class="data" th:text="*{todo_date}"></td>
+						<td class="data"></td>
+						<td class="data" th:text="*{todo_place}"></td>
+						<td class="inpunBtnArea">
+							<form method="get" th:action="@{/todo/details}">
+								<input type="hidden" name="todo_id" th:value="*{todo_id}">
+								<input type="submit" value="Dtl" class="inputBtn" id="detail">
+							</form>
+							<form method="post" th:action="@{/todo/complete}">
+								<input type="hidden" name="todo_id" th:value="*{todo_id}">
+								<input type="submit" value="Done" class="inputBtn" id="complete">
+							</form>
+							<form method="post" th:action="@{/todo/delete}">
+								<input type="hidden" name="todo_id" th:value="*{todo_id}">
+								<input type="submit" value="Del" class="inputBtn" id="delete">
+							</form>
+						</td>
+					</tr>
+				</th:block>
+			</table>
+
+			
+<footer> </footer>
+		</div>
+		</section>
+		
+		
+			
+</body>
+</html>

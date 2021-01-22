@@ -1,0 +1,221 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+* {
+	font-family: "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN",
+		"ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+}
+
+article, aside, details, figcaption, figure, footer, header, main, menu,
+	nav, section {
+	display: block;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+a {
+	text-decoration: none;
+	color: #333;
+}
+
+.container {
+	margin: 0 auto;
+	width: 80%;
+}
+
+.headerBlackBoxUp {
+	background-size: cover;
+	background-color: black;
+	background: linear-gradient(gray, 70%, white);
+	height: 100px;
+	opacity: 0.8;
+	width: 100%;
+	position: relative;
+	position:fixed;	
+	margin-top:100px;
+}
+
+h2 {
+	color: black; paddinig auto;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 15%;
+	font-size: 35px;
+}
+
+h1 {
+	color: white; paddinig auto;
+	position: absolute;
+	top: 50%;
+	font-size: 65px;
+	transform: translateY(-50%);
+	left: 15%;
+}
+
+.headerBlackBoxUnder {
+	background-size: cover;
+	/*	background: linear-gradient(black, 80%, gray);*/
+	background-color: black;
+	opacity: 0.8;
+	height: 100px;
+	width: 100%;
+	position:fixed;	
+}
+
+header {
+	background-size: cover;
+	height: 200px;
+	position:relative;
+	
+	
+}
+footer{
+	background-size: cover;
+	height: 300px;
+	/*background-color: gray;*/
+
+}
+
+
+.box {
+	position: relative;
+
+}
+
+.main {
+	position: absolute;
+}
+
+.title {
+	border-radius: 15px;
+	font-size: 30px;
+	padding-left:15px;
+	margin-right:15px;
+}
+
+.btn {
+	margin-top: 100px;
+	border-radius: 15px;
+	padding: 0 15px;
+	font-size: 30px;
+	font-weight: bold;
+	color: white;
+	background-color: gray;
+	cursor : pointer;
+}
+
+.blue_white_box {
+	background: repeating-linear-gradient(90deg, #ecf6f9 0px, #ecf6f9 30px, #fff 30px,
+		#fff 60px);
+	border: #fff 5px solid;
+	box-sizing: border-box;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.table {
+	width: 100%; /* 幅指定 */
+	background-color: black;
+	height: 100px;
+	opacity: 0.5;
+	color: white;
+	border-bottom: 1px solid white;
+	border-collapse: collapse;
+	border-radius: 15px;
+}
+
+.table th, td {
+	padding: 10px; /* 余白指定 */
+	text-align: left; /* 文字の揃え位置指定 */
+	font-size: 30px;
+}
+
+.table th {
+	width: 300px; /* 幅指定 */
+	height: 40px; /* 高さ指定 */
+	font-weight: normal; /* 文字の太さ指定 */
+	border-bottom: 1px solid white;
+	text-align:center;
+}
+
+.table td {
+	height: 100px; /* 高さ指定 */
+}
+
+.data {
+	font-weight: bold; /* 文字の太さ指定 */
+	text-align: center;
+}
+
+.inputBtn {
+	font-size: 30px;
+	padding: 0 9px;
+	width: 100%;
+	margin-bottom: 10px;
+	vertical-align: middle;
+	margin-top:20px;
+	cursor : pointer;
+}
+
+.inpunBtnArea {
+	display: flex;
+	/* display: table-cell; セル属性に変更     
+	text-align: center; 横位置             
+	vertical-align: middle; 縦位置              */
+}
+
+.inputBtn:hover {
+	font-weight: bold;
+}
+
+#detail {
+	
+}
+
+#complete {
+	
+}
+
+#delete {
+	
+}
+
+.btnForm {
+	
+}
+.detailTable{
+	width:100%; /*テーブル幅100%*/
+	margin-top:100px;
+
+}
+.detailInfo{
+	font-size:40px; /*入力エリアフォントサイズ*/
+	width:70%;		/*テーブルサイズにあわせる*/
+	padding-left:15px;
+	border-radius: 15px;
+}
+#saveBtn{
+	float:right; /*右寄せ*/
+}
+
+.clearfix::after {
+   content: "";
+   clear: both; 
+   display: block;　
+  
+}
+#backBtn{
+	float:right; /*右寄せ*/
+	margin-right:30px;
+}
+#createArea{
+	margin-bottom: 100px;
+	float:right;
+}

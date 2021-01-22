@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}">Insert title here</title>
+</head>
+<body>
+	<h1 th:text="${title}">title</h1>
+	<h2 th:text="${complete}"></h2>
+
+	<form method="post" action="#" th:action="@{/inquiry/confirm}"
+		th:object="${inquiryForm}">
+		<table border="1">
+			<tr>
+				<th align="right"><label for="inquiryType">お問い合わせ項目:</label></th>
+				<td><select name="inquiryType" th:value="inquiryType">
+						<option value="100">研修内容について</option>
+						<option value="200">研修講師について</option>
+						<option value="300">研修会場について</option>
+						<option value="400">その他</option>
+				</select></td>
+			</tr>
+			<tr>
+				<th align="right"><label for="inquiryUser">お客様のお名前:</label></th>
+				<td><input name="inquiryUser" type="text"
+					th:value="*{inquiryUser}">
+					<div th:if="${#fields.hasErrors('inquiryUser')}"
+						th:errors="*{inquiryUser}"></div>（記入例：どとーる はなこ）</td>
+			</tr>
+			<tr>
+				<th align="right"><label for="inquiryUserMail">ご連絡先メールアドレス：
+				</label></th>
+				<td><input name="inquiryUserMail" type="text"
+					th:value="*{inquiryUserMail}">
+					<div th:if="${#fields.hasErrors('inquiryUserMail')}"
+						th:errors="*{inquiryUserMail}"></div>半角英数字でご記入ください（記入例：doutor@doutor.co.jp）</td>
+			</tr>
+			<tr>
+				<th align="right"><label for="inquiryInfo">お問い合わせ内容：</label></th>
+				<td><textarea name="inquiryInfo" rows="3" cols="40"
+						th:field="*{inquiryInfo}"></textarea>
+
+					<div th:if="${#fields.hasErrors('inquiryInfo')}"
+						th:errors="*{inquiryInfo}"></div></td>
+			</tr>
+		</table>
+		<br>
+		<br> <input type="submit" value="送信">
+	</form>
+
+	<br>
+	<hr>
+	<br>
+
+あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほ
+	<form method="post" action="#" th:action="@{/inquiry/confirm}"
+		th:object="${inquiryForm}">
+		<label for="inquiryType">お問い合わせ項目</label> <select name="inquiryType"
+			th:value="inquiryType">
+			<option value="100">研修内容について</option>
+			<option value="200">研修講師について</option>
+			<option value="300">研修会場について</option>
+			<option value="400">その他</option>
+		</select><br> <label for="inquiryUser">お名前:</label> <input
+			name="inquiryUser" type="text" th:value="*{inquiryUser}"><br>
+		<div th:if="${#fields.hasErrors('inquiryUser')}"
+			th:errors="*{inquiryUser}"></div>
+		<label for="inquiryUserMail">ご連絡先メールアドレス： </label> <input
+			name="inquiryUserMail" type="text" th:value="*{inquiryUserMail}"><br>
+		<div th:if="${#fields.hasErrors('inquiryUserMail')}"
+			th:errors="*{inquiryUserMail}"></div>
+		<label for="inquiryInfo">お問い合わせ内容：</label>
+		<textarea name="inquiryInfo" rows="3" cols="40"
+			th:field="*{inquiryInfo}"></textarea>
+		<br>
+		<div th:if="${#fields.hasErrors('inquiryInfo')}"
+			th:errors="*{inquiryInfo}"></div>
+		<input type="submit" value="送信">
+	</form>
+</html>

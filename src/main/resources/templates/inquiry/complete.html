@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}">Insert title here</title>
+</head>
+<body>
+	<h1 th:text="${title}">Controllerの引数の文字が入るよ</h1>
+	<p>MY SQLを確認してみて！</p>
+	<div>
+		<p>
+			<hr><b>やさしい説明文</b><br>~MySQL~
+		</p>
+
+
+		<ul>
+			<ol>
+				<li>Command Line Client を立ち上げる(APK)</li>
+				<li>PWを入れる(Tvxq52jyj31995)</li>
+				<li>データベース一覧を見る show databases;</li>
+				<li>選択する use testdb;</li>
+				<li>テーブル一覧をみる show tables;</li>
+				<li>select * from inquiry 等</li>
+				<li>(これはtable plusのUIで開く動作とまったく同じこと！ほぉ～～～～～）</li>
+				<li>終</li>
+			</ol>
+		</ul>
+	</div>
+	<hr>
+
+	<div>
+		<p>
+			<b>ざっくり復習</b><br>~全体の流れ~
+		</p>
+
+		<dl>
+			<ul>
+				<ol>
+					<li><dt>ユーザ入力locallhost~</dt>
+						<dd>controllerでタイトルとformクラスとhtml返す</dd></li>
+					<li><dt>ユーザ入力、送信押下</dt>
+						<dd>controllerでconfirmを引数としてFormの中身のエラーチェックと確認画面のhtmlを返す</dd></li>
+					<li><dt>ユーザが送信押下</dt>
+						<dd>
+							completeを引数としてデータベースへの登録を行う（formにはいっているユーザが入れた情報をEntityへ詰めていく <br>（＝DBに入れる型とまったく同じ形で、準備が整ったらServiceクラスを使ってDBへのアクセスができるDaoを呼び出してDBへ登録する
+						</dd></li>
+					<li><dt>そのあとはfromのhtmlかcompleteのHTMLに戻る</dt>
+						<dd>formに直接戻るときはredirectをつかう。returnでなくて（get）</dd></li>
+				</ol>
+			</ul>
+		</dl>
+	</div>
+	<div th:object="${inquiryForm}">
+		<hr>
+
+		<form method="post" action="#" th:action="@{/inquiry/form}">
+			<input type="submit" value="トップへ戻る">
+		</form>
+	</div>
+	
+	DELETE FROM inquiry WHERE INQUIRY_INFO LIKE "こここ%";<br>
+	DELETE FROM inquiry WHERE INQUIRY_USER = "竈門　禰豆子";<br>
+</body>
+</html>
