@@ -34,8 +34,10 @@ public class taskEntity {
 		@Column(name = "TODO_PLACE")
 		private String todo_place;
 		
+		
 		@Column(name = "COMPLETE_FLAG")
 		private Boolean complete_flag;
+		
 		
 		@Column(name = "DELETE_FLAG")
 		private Boolean delete_flag;
@@ -43,7 +45,6 @@ public class taskEntity {
 		
 	//—é–Ø‚³‚ñ‚É•·‚­
 		 public Date getTodo_date() { 
-			 //Date todo_date = new Date();  
 			 return todo_date; 
 		}
 		  

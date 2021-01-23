@@ -1,9 +1,8 @@
 package com.todo.base.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
+//import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,53 +26,53 @@ public class taskController {
 
 	@Autowired
 	taskAccessService taskAcsServ;
-	
-	
+
+
 	//ホーム
 	@GetMapping(URL.LIST)
 	//litFormを作る
 	public String displayList(Model model,taskForm taskForm) {
-	
+
 		//DBからデータ探してくる
-        List<taskEntity> todolists =taskAcsServ.searchAll();
-		
+		List<taskEntity> todolists =taskAcsServ.searchAll();
+
 		model.addAttribute("todolists",todolists);
-		
+
 		//タイトル追加
 		model.addAttribute("title", "toDoList");
-	
+
 		//http://localhost:8080/todo/list
 		return URL.TODO + URL.LIST;
-	
+
 	}
-	
+
 	//作成押下時
 	@PostMapping(URL.CREATE)
 	public String complete( @Validated taskForm taskForm, 
 			Model model) {	
-		
+
 		//エンティティのインスタンス作成
 		taskEntity taskEntity = new taskEntity();
-		
+
 		//エンティティにタイトルを渡す
 		taskEntity.setTodo_title(taskForm.getTodo_title());
-		
+
 		//日付を入れる（今の）
 		//taskEntity.setTodo_date(taskEntity.getTodo_date());
-		
+
 		//DBへインサートする
 		taskAcsServ.taskInsert(taskEntity);
-		
-		
+
+
 		model.addAttribute("title", "toDoList");
-		
-			
-		 //http://localhost:8080/todo/list
+
+
+		//http://localhost:8080/todo/list
 		//return URL.TODO + URL.LIST;
 		return "redirect:/todo/list";
-				
+
 	}
-	
+
 	/*
 	 * 詳細画面へ遷移
 	 * データを一件取得する処理
@@ -81,20 +80,20 @@ public class taskController {
 	 * */
 	@GetMapping(URL.DETAILS)
 	public String displayDtl(taskForm taskForm, Model model) {
-		
+
 		//決まったデータ表示
 		taskEntity oneTask = taskAcsServ.findTask(taskForm.getTodo_id());
-		
+
 		//タイトル
 		model.addAttribute("title","My Task");
-		
+
 		//Entityを渡す
 		model.addAttribute("oneTask", oneTask);
-		
+
 		//詳細画面へ
 		return URL.TODO + URL.DETAILS;
-		
-	
+
+
 	}
 
 	/**
@@ -103,52 +102,70 @@ public class taskController {
 	 * @param model　titleを渡す
 	 * @return list画面
 	 */
-		
+
 	@PostMapping(URL.LIST)
 	public String taskUpdate(@Validated taskForm taskForm, Model model) {
-		
+
 		//updateするため
 		//DBへ渡すEntitiy
 		taskEntity updateEntity = new taskEntity();
-		
+
 		//idを入れる
 		updateEntity.setTodo_id(taskForm.getTodo_id());
-		
+
 		//タイトルを更新＝入れる
 		updateEntity.setTodo_title(taskForm.getTodo_title());
-		
+
 		//場所を更新＝入れる
 		updateEntity.setTodo_place(taskForm.getTodo_place());
-		
-		
-		
-		
-	    
-	    try {
-		String stDate ="2020/10/14 01:23:34"; 
-		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd E HH:mm:ss");
-		System.out.println("koko");
-		System.out.println(taskForm.getTodo_date());
-		Date dates = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse(taskForm.getTodo_date()); //StringからDateへ
-		
-		//Date dates = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse(stDate); //StringからDateへ
-		updateEntity.setTodo_date(dates);
-		System.out.println(dates);
-	    }catch(ParseException ex){
-	    	ex.printStackTrace();
-	    }
-		
-		
+
+		/**
+		 * パラメーター　：yyyy/MM/dd
+		 * 戻り値　：yyyy/MM/dd 
+		 * 文字列の日付をjava.sql.Dateに変換する
+		 * java.util.Dateではない。
+		 * sqlパッケージのDateはデータベースのデータ型のdateと互換性があります
+		 *  データベースの日付をJavaで処理したい場合に使用します。
+		 */
+		//日付を入れる
+		updateEntity.setTodo_date(Date.valueOf(taskForm.getTodo_date()));
+
+
+		//updateEntity.setTodo_time(Time.valueOf((taskForm.getTodo_time())));が解決できなくて以下で一旦
+
+		/**
+		 * valueOf public static Time valueOf(String s) JDBC時間エスケープ形式中の文字列をTime値に変換します。
+		 * パラメータ: s - hh:mm:ss形式の時間 戻り値: 対応するTimeオブジェクト
+		 */
+
+		//未入力だったら
+		if(taskForm.getTodo_time().length() < 6 ) {
+
+			StringBuilder buf = new StringBuilder();
+			//hh:mm
+			buf.append(taskForm.getTodo_time());	
+			//:ss
+			buf.append(":00");
+			//00を語尾につけて、hh:mm:ssのストリングをタイム型変換
+			updateEntity.setTodo_time(Time.valueOf((buf.toString())));
+
+			//既に入力されていたら
+		}else{
+			//hh:mm:ssのストリングをタイム型変換
+			updateEntity.setTodo_time(Time.valueOf(taskForm.getTodo_time()));	
+
+		}
+
 		//データを更新する
-		taskAcsServ.taskUpdatek(updateEntity); //落ちる。。。。。。。。。。。。。。。
-		
+		taskAcsServ.taskUpdatek(updateEntity); 
+
 
 		//全データを取得してくる
 		//DBからデータ探してくる
-        List<taskEntity> todolists =taskAcsServ.searchAll();
-		
+		List<taskEntity> todolists =taskAcsServ.searchAll();
+
 		model.addAttribute("todolists",todolists);
-		
+
 		//タイトル追加
 		model.addAttribute("title", "toDoList");
 
@@ -157,9 +174,9 @@ public class taskController {
 		return "redirect:/todo/list";
 	}
 
-	
-	
-	
-	
-	
+
+
+
+
+
 }

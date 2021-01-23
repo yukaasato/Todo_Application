@@ -44,8 +44,8 @@
 				<th:block>
 					<tr>
 						<td class="data" th:text="*{todo_title}">タイトル</td>
-						<td class="data" th:text="*{todo_date}"></td>
-						<td class="data"></td>
+						<td class="data" th:text="${#dates.format(list.todo_date,'yyyy-MM-dd')}"></td>
+						<td class="data" th:text="${#dates.format(list.todo_time,'hh:mm')}"></td>
 						<td class="data" th:text="*{todo_place}"></td>
 						<td class="inpunBtnArea">
 							<form method="get" th:action="@{/todo/details}">

@@ -33,14 +33,16 @@
 					</tr>
 					<tr>
 						<td class="data"><label for="todo_date">Day <i class="far fa-calendar-alt"></i></label></td>
-						<td> <input name="todo_date" th:value="*{todo_date}" class="detailInfo" type="date"><!--  -->
+						<td><input name="todo_date"  class="detailInfo" type="date" th:value="${#dates.format(oneTask.todo_date,'yyyy-MM-dd')}">
+						
+						<!--  -->
 						
 						</td>
 						
 					</tr>	
 					<tr>
 						<td class="data"><label for="todo_time">Time <i class="fas fa-clock"></i></label>
-						<td><input name="todo_time" type="text" th:value="*{todo_time}" class="detailInfo"></td>
+						<td><input name="todo_time" type="time" th:value="*{todo_time}" class="detailInfo"></td>
 					</tr>	
 					<tr>	
 						<td class="data"><label for="todo_place">Place <i class="fas fa-map-marked-alt"></i></label> 
