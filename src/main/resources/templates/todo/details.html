@@ -14,22 +14,24 @@
 	<header>
 		<div class="headerBlackBoxUnder">
 			<h1 th:text="${title}" class="container"></h1>
+			
 		</div>
 		<div class="headerBlackBoxUp">
-			<h2 class="container">
-				Task Detail <i class="fas fa-edit"></i>
-			</h2>
+			<h2 class="container">Task Detail <i class="fas fa-edit"></i></h2>
 		</div>
 	</header>
 	<section class="container box">
 		<div >
-
 			<form method="post" th:action="@{/todo/list}" th:object="${oneTask}">
 			
 				<table class="table detailTable">
 					<tr>
 						<td class="data"><label for="todo_title">Task <i class="fas fa-thumbtack"></i></label> </td>
-						<td><input name="todo_title" type="text" th:value="*{todo_title}" class="detailInfo"></td>
+						<td><input name="todo_title" type="text" th:value="*{todo_title}" class="detailInfo">
+							<div th:if="${#fields.hasErrors('todo_title')}" th:errors="*{todo_title}" style="color: gray">
+							</div>
+						</td>
+		
 					</tr>
 					<tr>
 						<td class="data"><label for="todo_date">Day <i class="far fa-calendar-alt"></i></label></td>
@@ -51,16 +53,17 @@
 				</table>
 				
 				<div>
-					<input type="submit" value="Save" class="btn" id="saveBtn">
+					<input type="submit" value="&#xf0c7;"class="sumbit fa fa-3x addBtn dtlBtn" id="saveBtn">
 					<input type="hidden" name="todo_id" th:value="*{todo_id}">
 				</div>
 			</form>
 			
 			<form  method="get" th:action="@{/todo/list}">
 				<div class="clearfix">
-					<input type="submit" value="Back" class="btn" id="backBtn">
+					<input type="submit" value="&#xf2ea;"class="sumbit fa fa-3x addBtn dtlBtn" id="backBtn"><!-- 戻るボダンーー-->
 				</div>
 			</form>
+			
 		</div>
 	</section>
 	<footer> </footer>	

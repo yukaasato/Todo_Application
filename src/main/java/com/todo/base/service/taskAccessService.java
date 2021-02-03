@@ -20,9 +20,9 @@ public class taskAccessService {
 	taskContentAccessDao taskAcsDao;
 
 	//Taskì¬
-	public void taskInsert(taskEntity taskEntity) {
+	public void addTask(taskEntity taskTitle) {
 
-		taskAcsDao.taskCntInsert(taskEntity);
+		taskAcsDao.addTask(taskTitle);
 	}
 
 
@@ -47,5 +47,24 @@ public class taskAccessService {
 		
 	}
 
+	//Taskíœ
+	public void taskDelete(int id) {
+		taskAcsDao.deleteTask(id);
+		
+	}
+	//TaskŠ®—¹
+	public void taskComplete(int id) {
+		taskAcsDao.completeTask(id);
+	}
+	//TaskƒNƒŠƒA
+	public void taskClear(int id) {
+		taskAcsDao.clearTask(id);
+	}
+	
+	//Task‘Síœ
+	public void taskAllDelete() {
+		
+		taskAcsDao.taskAllDelete();
+	}
 }
 

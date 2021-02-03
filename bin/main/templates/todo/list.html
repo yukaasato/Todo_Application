@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymelead.org">
 <head>
@@ -11,6 +9,8 @@
 	rel="stylesheet">
 </head>
 <body>
+
+	<!-- ヘッダーー-->
 	<header>
 		<div class="headerBlackBoxUnder">
 			<h1 th:text="${title}" class="container "></h1>
@@ -19,58 +19,89 @@
 			<h2 class="container">My Tasks <i class="fas fa-tasks"></i></h2>
 		</div>
 	</header>
-	
-	<section class="container box">
-		<div class="main">
-		<div class="clearfix">
-			<form method="post" th:action="@{/todo/create}" th:object="${taskForm}" id="createArea">
-				<input type="text" name="todo_title" th:value="*{todo_title}"class="title">
-				<input type="submit" value="AddTask" class="btn">
-			</form>
-		</div>	
-					
-			<table class="table" th:each="list : ${todolists}" th:object="${list}">
-				<thead>
-					<th:block>
-						<tr>
-							<th><i class="fas fa-thumbtack"></i></th>
-							<th><i class="far fa-calendar-alt"></i></th>
-							<th><i class="fas fa-clock"></i></th>
-							<th><i class="fas fa-map-marked-alt"></i></th>
-							<!-- <th>Status</th> -->
-						</tr>
-					</th:block>
-				</thead>
-				<th:block>
-					<tr>
-						<td class="data" th:text="*{todo_title}">タイトル</td>
-						<td class="data" th:text="${#dates.format(list.todo_date,'yyyy-MM-dd')}"></td>
-						<td class="data" th:text="${#dates.format(list.todo_time,'hh:mm')}"></td>
-						<td class="data" th:text="*{todo_place}"></td>
-						<td class="inpunBtnArea">
-							<form method="get" th:action="@{/todo/details}">
-								<input type="hidden" name="todo_id" th:value="*{todo_id}">
-								<input type="submit" value="Dtl" class="inputBtn" id="detail">
-							</form>
-							<form method="post" th:action="@{/todo/complete}">
-								<input type="hidden" name="todo_id" th:value="*{todo_id}">
-								<input type="submit" value="Done" class="inputBtn" id="complete">
-							</form>
-							<form method="post" th:action="@{/todo/delete}">
-								<input type="hidden" name="todo_id" th:value="*{todo_id}">
-								<input type="submit" value="Del" class="inputBtn" id="delete">
-							</form>
-						</td>
-					</tr>
-				</th:block>
-			</table>
+	<!-- ヘッダ終ーー-->
 
-			
-<footer> </footer>
-		</div>
-		</section>
+
+	<!-- コンテナーー-->
+	<section class="container box">
+		<!-- メインーー-->
+		<div class="main">
 		
-		
+			<!-- タイトル追加ボタンーー-->
+			<div class="clearfix">
+				<form method="post" th:action="@{/todo/create}"th:object="${taskForm}" id="createArea"><!-- taskFromオブジェクトへ格納してJavaへ渡すーー-->
+					<input type="text" name="todo_title" th:value="*{todo_title}"class="title"><!--テキスト部分 taskFromオブジェクトのtodo_titleフィールドに格納してJavaへ渡すーー-->
+					<input type="submit" value="&#xf055;"class="sumbit fa fa-2x addBtn"><!-- 追加ボダンーー-->
+					<div th:if="${#fields.hasErrors('todo_title')}"th:errors="*{todo_title}" style="color: gray"></div><!-- 未入力だったら再入力を促すーー-->
+				</form>
+			</div>
+			<!-- タイトル追加ボタン終ーー-->	
+
+			<!-- Todoリストーー-->
+			<table class="table">
 			
+				<tr id="midashi"><!-- 見出しーー-->
+					<th>Task <i class="fas fa-thumbtack"></i></th><!-- アイコンーー-->
+					<th>Date <i class="far fa-calendar-alt"></i></th>
+					<th>Time <i class="fas fa-clock"></i></th>
+					<th>Place <i class="fas fa-map-marked-alt"></i></th>
+					<th></th>
+				</tr>
+				
+				<!-- 繰り返し部分ーー-->
+				<!-- 1.繰り返すオブジェクト -->
+				<th:block th:each="list : ${todolists}" th:object="${list}"><!-- ${todolists}がJavaから受け取る変数名、th:each="変数名,ステータス変数名 : 繰り返す要素 ーー-->
+					
+					<!-- 2.条件 -->
+					<th:block th:if="*{delete_flag eq false}"><!-- *は${list}の省略、th:objectの部分。ーー--><!--削除されてなかったらー-->
+						
+						<!-- 3.データ -->
+						<tr th:classappend="*{complete_flag} ? done : notdone"><!--  flagがtrueならclass名をdoneでCSS適応、falseならnotdoneでCSS適応させない--><!-- complete_flagがtrueならdone,falseならnotdoneにクラス名が変換される -->
+							<td class="data" th:text="*{todo_title}"></td>
+							<td class="data"th:text="${#dates.format(list.todo_date,'yyyy-MM-dd')}"></td>
+							<td class="data"th:text="${#dates.format(list.todo_time,'hh:mm')}"></td><!-- ユーティリティメソッド、"${#dates.format(値,'hh:mm')}"> -->
+							<td class="data" th:text="*{todo_place}"></td>
+
+
+							<!-- ボタンエリア -->
+							<td class="inpunBtnArea">
+
+								<!-- 詳細ボタン -->
+								<form method="get" th:action="@{/todo/details}">
+									<input type="hidden" name="todo_id" th:value="*{todo_id}"><!--idをformに持たせておく、javaのほうで条件絞り込みに必要 -->
+									<input type="submit" value="&#xf05a;"class="sumbit fa fa-1x inputBtn" id="detail"><!--valueとclassはAwsome -->
+								</form> 
+								
+								<!-- 完了とクリアの分岐 --> 
+								<!-- 完了ボタン -->
+								<th:block th:if="*{complete_flag eq false}">	<!-- デフォルトでは「0」が入っている -->
+									<form method="post" th:action="@{/todo/complete}">
+										<input type="hidden" name="todo_id" th:value="*{todo_id}">
+										<input type="submit" value="&#xf00c;"class="sumbit fa fa-1x inputBtn" id="complete">
+									</form>
+								</th:block> 
+								
+								<!-- クリアボタン -->
+								<th:block th:if="*{complete_flag eq true}">
+									<form method="post" th:action="@{/todo/complete}">
+										<input type="hidden" name="todo_id" th:value="*{todo_id}">
+										<input type="hidden" name="complete_flag" th:value=1><!--javaではフラグはint型で定義しているので、数字で渡す、「1」は消しゴムステータス -->
+										<input type="submit" value="&#xf12d;"class="sumbit fa fa-1x inputBtn" id="complete">
+									</form>
+								</th:block>
+								
+								 <!-- 削除ボタン -->
+								<form method="post" th:action="@{/todo/delete}">
+									<input type="hidden" name="todo_id" th:value="*{todo_id}">
+									<input type="submit" value="&#xf1f8;"class="sumbit fa fa-1x inputBtn" id="delete">
+								</form>
+							</td><!-- ボタンエリア終 -->
+						</tr><!-- 行終 -->
+					</th:block><!-- 2.条件終ーー-->
+				</th:block><!-- 1.繰り返すオブジェクト終ーー-->
+			</table><!-- Todoリスト終ーー-->
+		</div><!-- メイン終ーー-->
+	<footer> </footer>
+	</section><!-- コンテナ終ーー-->
 </body>
 </html>

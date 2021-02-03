@@ -22,7 +22,9 @@ public class taskForm {
 		@NotNull
 		private int todo_id;
 		
-		@Size(min = 1, max = 60, message = "タイトルError")
+	
+		@NotNull
+		@Size(min = 1, max = 60, message = "※タイトルが未入力です")
 		@Column(name = "TODO_TITLE")
 		private String todo_title;	
 		

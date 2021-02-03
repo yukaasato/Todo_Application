@@ -95,11 +95,23 @@ footer{
 }
 
 .title {
-	border-radius: 15px;
+	border-radius: 45px;
 	font-size: 30px;
 	padding-left:15px;
 	margin-right:15px;
+	border:solid 1px gray;
 }
+
+.addBtn {
+	margin-top: 100px;
+	font-weight: bold;
+	cursor : pointer;
+	background-color: transparent;
+	color:gray;
+	border:none;
+}
+
+
 
 .btn {
 	margin-top: 100px;
@@ -120,33 +132,41 @@ footer{
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+.fieldError{
+	background-color: gray;
+}
 .table {
 	width: 100%; /* 幅指定 */
 	background-color: black;
-	height: 100px;
 	opacity: 0.5;
 	color: white;
 	border-bottom: 1px solid white;
 	border-collapse: collapse;
 	border-radius: 15px;
 }
+.table tr{
+	 border:1px solid #dedede;
+}
 
 .table th, td {
 	padding: 10px; /* 余白指定 */
-	text-align: left; /* 文字の揃え位置指定 */
 	font-size: 30px;
 }
 
 .table th {
 	width: 300px; /* 幅指定 */
-	height: 40px; /* 高さ指定 */
+	height: 70px; /* 高さ指定 */
 	font-weight: normal; /* 文字の太さ指定 */
-	border-bottom: 1px solid white;
+	border-bottom: 4px solid white;
 	text-align:center;
+}
+#midashi{
+
 }
 
 .table td {
-	height: 100px; /* 高さ指定 */
+	height: auto; /* 高さ指定 */
+	margin: 5px auto;
 }
 
 .data {
@@ -155,24 +175,32 @@ footer{
 }
 
 .inputBtn {
-	font-size: 30px;
+	font-size: 20px;
 	padding: 0 9px;
-	width: 100%;
-	margin-bottom: 10px;
-	vertical-align: middle;
+	width: 100%;	
 	margin-top:20px;
 	cursor : pointer;
+	/*色を反転させる*/
+	background-color: black; 
+	border: solid;
+	color:white;
+	border: transparent; /* 枠線が透明になる */
+	padding: 0 20px;
+		
 }
 
 .inpunBtnArea {
 	display: flex;
+	justify-content:center;
 	/* display: table-cell; セル属性に変更     
 	text-align: center; 横位置             
 	vertical-align: middle; 縦位置              */
 }
 
+
 .inputBtn:hover {
 	font-weight: bold;
+	color:gray;
 }
 
 #detail {
@@ -180,6 +208,7 @@ footer{
 }
 
 #complete {
+	
 	
 }
 
@@ -214,8 +243,25 @@ footer{
 #backBtn{
 	float:right; /*右寄せ*/
 	margin-right:30px;
+	
+}
+
+.dtlBtn{
+		/*色を反転させる*/
+	background-color: balck; 
+	border: solid;
+	color:gray;
+	border: transparent; /* 枠線が透明になる */
+}
+.dtlBtn:hover{;
+	color:gray;
+	opacity: 0.5;
+
 }
 #createArea{
 	margin-bottom: 100px;
 	float:right;
+}
+.done{
+	text-decoration: line-through;
 }
