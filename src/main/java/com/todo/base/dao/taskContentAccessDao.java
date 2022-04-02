@@ -70,7 +70,10 @@ public class taskContentAccessDao {
 		//SELECT * FROM todo Order by case when Todo_date is NULL then '9999-99-99 00:00:00' end, TODO_DATE ASC,TODO_TIME ASC;
 		
 		//EntityにgetResultList()で返ってきたデータをいれて、リスト型へ変換してresultListへ格納
-		List<taskEntity> resultList = (List<taskEntity>)em.createNativeQuery(selectAll.toString(), taskEntity.class).getResultList();
+		//emのメソッドgetResultList();型をなくして返す　名前のない箱
+		
+		List<taskEntity> resultList =
+				(List<taskEntity>)em.createNativeQuery(selectAll.toString(), taskEntity.class).getResultList();
 		
 		//全データをサービスクラスへ返す<ホーム画面のデータ>
 		return resultList;

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}">Insert title here</title>
+</head>
+<body>
+	<h1 th:text="${title}">title</h1><!-- modelから受け取る文字列が入っている -->
+
+	<form method="post" action="#" th:action="@{/review/insert}" th:object="${insertForm}"><!--データ送信→post Controllerへの宛先→th:action=###  ControllerからもらったFormの変数名-->
+	
+		 <label>タイトル:</label>
+
+		<input type="text" name="review_title" th:value="*{review_title}">
+		 <br><!-- Formの変数名と一緒"*{}の*でinsertFormクラスのフィールドにアクセスできる -->
+		
+		<br>
+		<input type="submit" value="送信">
+	</form>
+</html>
